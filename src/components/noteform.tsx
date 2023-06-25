@@ -9,9 +9,11 @@ import { NoteData, Tag } from "@/pages";
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
 };
 
-export default function NoteForm({ onSubmit }: NoteFormProps) {
+export default function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
   const router = useRouter();
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
@@ -20,7 +22,8 @@ export default function NoteForm({ onSubmit }: NoteFormProps) {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    onSubmit({ title: titleRef.current!.value, markdown: markdownRef.current!.value, tags: [] });
+    onSubmit({ title: titleRef.current!.value, markdown: markdownRef.current!.value, tags: selectedTags });
+    router.back();
   }
 
   return (
@@ -28,7 +31,16 @@ export default function NoteForm({ onSubmit }: NoteFormProps) {
       <FormGroup>
         <Input className='w-96' type='text' placeholder='Title' required ref={titleRef} />
         <CreateableReactSelect
+          instanceId={"react-select"}
+          onCreateOption={(label) => {
+            const newTag = { id: crypto.randomUUID(), label };
+            onAddTag(newTag);
+            setSelectedTags((prev) => [...prev, newTag]);
+          }}
           value={selectedTags.map((tag) => {
+            return { label: tag.label, value: tag.id };
+          })}
+          options={availableTags.map((tag) => {
             return { label: tag.label, value: tag.id };
           })}
           onChange={(tags) => {

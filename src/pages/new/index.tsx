@@ -1,11 +1,11 @@
 import NewNotePage from "@/components/newnote";
-import type { NoteData, RawNote, Tag } from "..";
-import { useMemo } from "react";
 import { useLocalStorage } from "@/lib/useLocalStorage";
+import { useMemo } from "react";
+import { NoteData, RawNote, Tag } from "..";
 
 export default function NewPage() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
-  const [tags, setTags] = useLocalStorage<Tag[]>("NOTES", []);
+  const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
 
   const notesWithTags = useMemo(() => {
     return notes.map((note) => {
@@ -19,9 +19,13 @@ export default function NewPage() {
     });
   }
 
+  function addTag(tag: Tag) {
+    setTags((prev) => [...prev, tag]);
+  }
+
   return (
     <>
-      <NewNotePage />
+      <NewNotePage onSubmit={onCreateNote} onAddTag={addTag} availableTags={tags} />
     </>
   );
 }

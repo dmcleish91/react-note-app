@@ -1,3 +1,5 @@
+import NoteList from "@/components/notelist";
+
 export type Note = {
   id: string;
 } & NoteData;
@@ -26,7 +28,7 @@ export type Tag = {
 export default function Home() {
   return (
     <>
-      <h1 className='text-2xl font-semibold'>Home</h1>
+      <NoteList />
     </>
   );
 }
