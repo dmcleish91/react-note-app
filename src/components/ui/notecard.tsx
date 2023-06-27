@@ -16,13 +16,13 @@ export default function NoteCard({ className, noteTitle, noteTags, noteId }: Not
     <Card className={`w-[384px] hover:shadow-lg hover:scale-101 transition duration-300 ${className}`} onClick={() => router.push(`/${noteId}`)}>
       <CardHeader>
         <CardTitle>{noteTitle}</CardTitle>
-        <CardDescription>
+        <div className='space-x-1'>
           {noteTags.map((tag) => (
             <Badge key={tag} className='truncate' variant='destructive'>
               {tag}
             </Badge>
           ))}
-        </CardDescription>
+        </div>
       </CardHeader>
     </Card>
   );

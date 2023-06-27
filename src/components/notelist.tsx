@@ -19,9 +19,8 @@ export default function NoteList({ availableTags, notes }: NotesListProps) {
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
       return (
-        title === "" ||
-        (note.title.toLowerCase().includes(title.toLowerCase()) && selectedTags.length === 0) ||
-        selectedTags.every((tag) => note.tags.some((noteTag) => noteTag.id === tag.id))
+        (title === "" || note.title.toLowerCase().includes(title.toLowerCase())) &&
+        (selectedTags.length === 0 || selectedTags.every((tag) => note.tags.some((noteTag) => noteTag.id === tag.id)))
       );
     });
   }, [title, selectedTags, notes]);

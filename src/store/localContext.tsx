@@ -1,4 +1,4 @@
-import useLocalStorage from "@/lib/useLocalStorage";
+import { useLocalStorage } from "@/lib/useLocalStorage";
 import type { Note, RawNote, Tag } from "@/pages";
 import { createContext, ReactNode, useMemo } from "react";
 
@@ -9,9 +9,12 @@ export function LocalContextProvider(props: { children: ReactNode }) {
   const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
 
   const notesWithTags = useMemo(() => {
-    return notes.map((note) => {
-      return { ...note, tags: tags.filter((tag) => note.tagIds.includes(tag.id)) };
-    });
+    if (typeof window !== "undefined") {
+      return notes.map((note) => {
+        return { ...note, tags: tags.filter((tag) => note.tagIds.includes(tag.id)) };
+      });
+    }
+    return [];
   }, [notes, tags]);
 
   const context: localContext = {

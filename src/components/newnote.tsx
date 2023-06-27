@@ -9,9 +9,9 @@ type NewNotePageProps = {
 
 export default function NewNotePage({ onSubmit, onAddTag, availableTags }: NewNotePageProps) {
   return (
-    <>
+    <div>
       <h1 className='text-2xl font-semibold mb-4'>New Note</h1>
       <NoteForm onSubmit={onSubmit} onAddTag={onAddTag} availableTags={availableTags} />
-    </>
+    </div>
   );
 }

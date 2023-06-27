@@ -1,6 +1,10 @@
-import NoteList from "@/components/notelist";
 import { localContext } from "@/store/localContext";
+import dynamic from "next/dynamic";
 import { useContext } from "react";
+
+const NoteList = dynamic(() => import("@/components/notelist"), {
+  ssr: false,
+});
 
 export type Note = {
   id: string;
