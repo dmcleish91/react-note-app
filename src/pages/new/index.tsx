@@ -1,31 +1,24 @@
 import NewNotePage from "@/components/newnote";
-import { useLocalStorage } from "@/lib/useLocalStorage";
-import { useMemo } from "react";
-import { NoteData, RawNote, Tag } from "..";
+import { useContext } from "react";
+import { NoteData, Tag } from "..";
+import { localContext } from "@/store/localContext";
 
 export default function NewPage() {
-  const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
-  const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
-
-  const notesWithTags = useMemo(() => {
-    return notes.map((note) => {
-      return { ...note, tags: tags.filter((tag) => note.tagIds.includes(tag.id)) };
-    });
-  }, [notes, tags]);
+  const localCtx = useContext(localContext);
 
   function onCreateNote({ tags, ...data }: NoteData) {
-    setNotes((prevNotes) => {
+    localCtx.setNotes((prevNotes: any) => {
       return [...prevNotes, { ...data, id: crypto.randomUUID(), tagIds: tags.map((tag) => tag.id) }];
     });
   }
 
   function addTag(tag: Tag) {
-    setTags((prev) => [...prev, tag]);
+    localCtx.setTags((prev: any) => [...prev, tag]);
   }
 
   return (
     <>
-      <NewNotePage onSubmit={onCreateNote} onAddTag={addTag} availableTags={tags} />
+      <NewNotePage onSubmit={onCreateNote} onAddTag={addTag} availableTags={localCtx.tags} />
     </>
   );
 }

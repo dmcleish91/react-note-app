@@ -1,4 +1,6 @@
 import NoteList from "@/components/notelist";
+import { localContext } from "@/store/localContext";
+import { useContext } from "react";
 
 export type Note = {
   id: string;
@@ -26,9 +28,7 @@ export type Tag = {
 };
 
 export default function Home() {
-  return (
-    <>
-      <NoteList />
-    </>
-  );
+  const localCtx = useContext(localContext);
+
+  return <NoteList availableTags={localCtx.tags} notes={localCtx.notesWithTags} />;
 }
