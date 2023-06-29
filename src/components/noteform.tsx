@@ -11,13 +11,13 @@ type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
   onAddTag: (tag: Tag) => void;
   availableTags: Tag[];
-};
+} & Partial<NoteData>;
 
-export default function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
+export default function NoteForm({ onSubmit, onAddTag, availableTags, title = "", markdown = "", tags = [] }: NoteFormProps) {
   const router = useRouter();
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -29,7 +29,7 @@ export default function NoteForm({ onSubmit, onAddTag, availableTags }: NoteForm
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
-        <Input className='w-96' type='text' placeholder='Title' required ref={titleRef} />
+        <Input className='w-96' type='text' placeholder='Title' required ref={titleRef} defaultValue={title} />
         <CreateableReactSelect
           instanceId={"react-select"}
           onCreateOption={(label) => {
@@ -55,7 +55,7 @@ export default function NoteForm({ onSubmit, onAddTag, availableTags }: NoteForm
         />
       </FormGroup>
       <FormGroup>
-        <Textarea className='w-[49rem] h-48' placeholder='Note Body' required ref={markdownRef} />
+        <Textarea className='w-[49rem] h-48' placeholder='Note Body' required ref={markdownRef} defaultValue={markdown} />
       </FormGroup>
       <FormGroup className='justify-end'>
         <Button type='submit'>Submit</Button>

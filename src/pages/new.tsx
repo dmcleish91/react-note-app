@@ -1,6 +1,6 @@
 import NewNotePage from "@/components/newnote";
 import { useContext } from "react";
-import { NoteData, Tag } from "..";
+import { NoteData, Tag } from ".";
 import { localContext } from "@/store/localContext";
 
 export default function NewPage() {
