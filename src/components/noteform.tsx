@@ -28,7 +28,7 @@ export default function NoteForm({ onSubmit, onAddTag, availableTags, title = ""
 
   return (
     <form onSubmit={handleSubmit}>
-      <FormGroup>
+      <FormGroup className='mb-4'>
         <Input className='w-96' type='text' placeholder='Title' required ref={titleRef} defaultValue={title} />
         <CreateableReactSelect
           instanceId={"react-select"}
@@ -54,7 +54,7 @@ export default function NoteForm({ onSubmit, onAddTag, availableTags, title = ""
           isMulti
         />
       </FormGroup>
-      <FormGroup>
+      <FormGroup className='mb-4'>
         <Textarea className='w-[49rem] h-48' placeholder='Note Body' required ref={markdownRef} defaultValue={markdown} />
       </FormGroup>
       <FormGroup className='justify-end'>

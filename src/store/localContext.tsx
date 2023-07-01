@@ -34,6 +34,6 @@ type localContext = {
   notes: RawNote[];
   tags: Tag[];
   notesWithTags: Note[];
-  setNotes: (notes: any) => void;
-  setTags: (tags: any) => void;
+  setNotes: (notes: any | Note[]) => void;
+  setTags: (tags: any | Tag[]) => void;
 };

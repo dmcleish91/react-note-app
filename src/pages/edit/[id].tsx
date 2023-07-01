@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { localContext } from "@/store/localContext";
 import type { Note, NoteData, Tag } from "..";
 import { useRouter } from "next/router";
+import NavigateBack from "@/components/navigateback";
 
 export default function EditPage() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function EditPage() {
     localCtx.setTags((prev: any) => [...prev, tag]);
   }
 
-  if (note == null) return null;
+  if (note == null) return <NavigateBack url={"/"} />;
 
   return (
     <>

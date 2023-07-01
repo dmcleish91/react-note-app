@@ -14,9 +14,9 @@ export default function NoteCard({ className, noteTitle, noteTags, noteId }: Not
 
   return (
     <Card className={`w-[384px] hover:shadow-lg hover:scale-101 transition duration-300 ${className}`} onClick={() => router.push(`/${noteId}`)}>
-      <CardHeader>
-        <CardTitle>{noteTitle}</CardTitle>
-        <div className='space-x-1'>
+      <CardHeader className='space-y-4'>
+        <CardTitle className='text-center'>{noteTitle}</CardTitle>
+        <div className='flex flex-row justify-center gap-2'>
           {noteTags.map((tag) => (
             <Badge key={tag} className='truncate' variant='destructive'>
               {tag}

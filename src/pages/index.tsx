@@ -34,5 +34,5 @@ export type Tag = {
 export default function Home() {
   const localCtx = useContext(localContext);
 
-  return <NoteList availableTags={localCtx.tags} notes={localCtx.notesWithTags} />;
+  return <NoteList availableTags={localCtx.tags} notes={localCtx.notesWithTags} setTags={localCtx.setTags} />;
 }
